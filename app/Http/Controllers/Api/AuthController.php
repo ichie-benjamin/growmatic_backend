@@ -30,13 +30,13 @@ class AuthController extends Controller
 
 
 
-    public function register(Request $request)
+    public function register(Request $request): JsonResponse
     {
         $request->validate([
-            // 'username' => 'required|max:50|min:3|unique:users',
+             'username' => 'required|max:50|min:3|unique:users',
             'first_name' => 'required|max:50|min:3',
             'last_name' => 'required|max:50|min:3',
-            'phone' => 'required|min:3|unique:users',
+//            'phone' => 'required|min:3|unique:users',
             'email' => 'required|max:50|email|unique:users',
             'password'  => 'required|min:6',
             'repeat_password' => 'required|same:password',
