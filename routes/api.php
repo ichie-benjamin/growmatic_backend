@@ -3,6 +3,10 @@
 use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ProductContentController;
+use App\Http\Controllers\Api\ProductSectionController;
+use App\Http\Controllers\Api\CertificateTemplateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-
 Route::group(['prefix' => 'v1/'], function ($router) {
 
     Route::prefix('auth')->group(function () {
@@ -35,4 +37,28 @@ Route::group(['prefix' => 'v1/'], function ($router) {
 
         Route::post('change_pass', [AuthController::class, 'changePassword']);
     });
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::apiResources(['products' => ProductController::class]);
+        Route::post('products/{productId}/detail', [ProductController::class, 'detail']);
+
+        Route::get('products/{productId}/sections', [ProductSectionController::class, 'index']);
+        Route::apiResources(['sections' => ProductSectionController::class],['except' => ['index']]);
+
+        Route::get('products/{productId}/pricing', [ProductController::class, 'pricingIndex']);
+        Route::post('products/{productId}/pricing', [ProductController::class, 'pricingStore']);
+
+        Route::get('products/{productId}/certificate', [ProductController::class, 'certificateShow']);
+        Route::post('products/{productId}/certificate', [ProductController::class, 'certificateStore']);
+        
+        Route::get('products/{productId}/contents', [ProductContentController::class, 'index']);
+        Route::apiResources(['contents' => ProductContentController::class],['except' => ['index']]);
+        Route::apiResources(['pricing'  => ProductContentController::class],['except' => ['store', 'index']]);
+
+
+        Route::middleware('role:admin|super-admin')->group(function () {
+            Route::apiResources(['certificate-templates' => CertificateTemplateController::class]);
+        });
+    });
+    
 });

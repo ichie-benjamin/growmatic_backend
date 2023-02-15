@@ -12,8 +12,6 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-
-
     public function successResponse($message, $data = [], $code = 200):JsonResponse
     {
         $response = [
