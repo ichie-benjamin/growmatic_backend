@@ -24,7 +24,7 @@ class ProjectsController extends Controller
     public function __construct()
     {
         $this->httpClient = Http::withToken(env("ACCESS_TOKEN"));
-        $this->baseUrl = "http://127.0.0.1:8001/api/v1";
+        $this->baseUrl = "https://builder.bennyondev.com/api/v1";
     }
 
 
