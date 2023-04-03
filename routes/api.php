@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ProjectsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductController;
@@ -58,7 +59,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
 
         Route::get('products/{productId}/certificate', [ProductController::class, 'certificateShow']);
         Route::post('products/{productId}/certificate', [ProductController::class, 'certificateStore']);
-        
+
         Route::get('products/{productId}/contents', [ProductContentController::class, 'index']);
         Route::apiResources(['contents' => ProductContentController::class],['except' => ['index']]);
         Route::apiResources(['pricing'  => ProductContentController::class],['except' => ['store', 'index']]);
@@ -66,6 +67,13 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::middleware('role:admin|super-admin')->group(function () {
             Route::apiResources(['certificate-templates' => CertificateTemplateController::class]);
         });
+
+
+        //BUILDER
+        Route::apiResources(['projects' => ProjectsController::class]);
+        Route::get('templates', [ProjectsController::class, 'templates']);
+
+
     });
-    
+
 });
