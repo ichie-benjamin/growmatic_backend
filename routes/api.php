@@ -4,6 +4,9 @@ use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\PodcastController;
+use App\Http\Controllers\Api\TransactionController;
+use App\Http\Controllers\Api\PeopleController;
 use App\Http\Controllers\Api\ProductContentController;
 use App\Http\Controllers\Api\ProductSectionController;
 use App\Http\Controllers\Api\CertificateTemplateController;
@@ -39,7 +42,12 @@ Route::group(['prefix' => 'v1/'], function ($router) {
     });
 
     Route::middleware('auth:sanctum')->group(function () {
-        Route::apiResources(['products' => ProductController::class]);
+        Route::apiResources([
+            'products' => ProductController::class,
+            'podcasts' => PodcastController::class,
+            'transactions' => TransactionController::class,
+            'people' => PeopleController::class,
+        ]);
         Route::post('products/{productId}/detail', [ProductController::class, 'detail']);
 
         Route::get('products/{productId}/sections', [ProductSectionController::class, 'index']);
@@ -54,7 +62,6 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::get('products/{productId}/contents', [ProductContentController::class, 'index']);
         Route::apiResources(['contents' => ProductContentController::class],['except' => ['index']]);
         Route::apiResources(['pricing'  => ProductContentController::class],['except' => ['store', 'index']]);
-
 
         Route::middleware('role:admin|super-admin')->group(function () {
             Route::apiResources(['certificate-templates' => CertificateTemplateController::class]);

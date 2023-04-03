@@ -16,6 +16,6 @@ class ProductTypesSeeder extends Seeder
      */
     public function run()
     {
-        ProductType::updateOrCreate(['name' => 'Mini Course'], ['name' => 'Mini Course']);
+        ProductType::updateOrCreate(['name' => 'Mini Course'], []);
     }
 }

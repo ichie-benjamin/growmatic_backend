@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Podcast;
 use Illuminate\Http\Request;
 
@@ -26,26 +27,12 @@ class PodcastController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'category_id' => 'required|exists:podcast_categories,id',
-            'type' => 'required|in:private,public',
-            'title' => 'required|string',
-            'thumbnail' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
-            'owner_email' => 'required|email',
-            'language' => 'required',
-            'category_id' => 'required|exists:podcast_categories,id',
-            'in_episodic_order' => 'nullable|boolean',
-            'in_serial_order' => 'nullable|boolean',
-            'published_at' => 'nullable|boolean'
-        ]);
-
+        $this->validateData($request);
         $data = $request->all();
         $data['user_id'] = auth()->id();
+        $data['published_at'] = $request->published_at == true ? date("Y-m-d h:i:s") : null;
 
-        if ($request->has('published_at')) {
-            $data['published_at'] = date("Y-m-d h:i:s");
-        }
-        $postcast = Podcast::create($request->all());
+        $postcast = Podcast::create($data);
         return $this->successResponse('Podcast created', $postcast);
     }
 
@@ -57,7 +44,7 @@ class PodcastController extends Controller
      */
     public function show(Podcast $podcast)
     {
-        //
+        return $this->successResponse('Podcast fetched', $podcast);
     }
 
     /**
@@ -69,7 +56,14 @@ class PodcastController extends Controller
      */
     public function update(Request $request, Podcast $podcast)
     {
-        //
+        $this->validateData($request);
+        $data = $request->all();
+        $data['user_id'] = auth()->id();
+        $data['published_at'] = $request->published_at == true ? date("Y-m-d h:i:s") : null;
+
+        $podcast->update($data);
+
+        return $this->successResponse('Podcast Updated', $podcast);
     }
 
     /**
@@ -80,6 +74,20 @@ class PodcastController extends Controller
      */
     public function destroy(Podcast $podcast)
     {
-        //
+        $podcast->delete();
+        return $this->successResponse('Podcast Delete Successfully');
+    }
+
+    private function validateData($request) {
+        $this->validate($request, [
+            'podcast_category_id' => 'required|exists:podcast_categories,id',
+            'type' => 'required|in:private,public',
+            'title' => 'required|string',
+            'thumbnail' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+            'language' => 'required',
+            'in_episodic_order' => 'nullable|boolean',
+            'in_serial_order' => 'nullable|boolean',
+            'published_at' => 'nullable|boolean'
+        ]);
     }
 }
