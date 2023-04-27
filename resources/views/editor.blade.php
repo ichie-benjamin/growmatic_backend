@@ -1710,7 +1710,9 @@
                 Vvveb.SectionList.init();
                 Vvveb.Breadcrumb.init();
 
-                Vvveb.FileManager.addPages({!! $files !!});
+                Vvveb.FileManager.addPages(pages);
+
+                {{--Vvveb.FileManager.addPages({!! $files !!});--}}
                 Vvveb.FileManager.loadPage(pages[firstPage]["name"]);
                 Vvveb.Breadcrumb.init();
 
