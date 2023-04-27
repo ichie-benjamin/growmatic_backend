@@ -68,7 +68,7 @@ class Project extends Model
 
     public function getEditorUrlAttribute(): string
     {
-        return env('EDITOR_URL').'?u='.$this->user_id.'&p='.$this->id;
+        return env('EDITOR_URL').'?u='.$this->user_id.'&p='.$this->slug;
     }
 
     public function setSettingsAttribute(array $value)
