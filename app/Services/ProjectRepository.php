@@ -212,19 +212,21 @@ class ProjectRepository
             Storage::disk('builder')->get(TemplateLoader::DEFAULT_THUMBNAIL),
         );
 
-        //custom css
-        $this->storage->put("$projectPath/css/code_editor_styles.css", '', Visibility::PUBLIC);
-
-        //custom js
-        $this->storage->put("$projectPath/js/code_editor_scripts.js", '',Visibility::PUBLIC);
-
-        //custom elements css
-        $this->addCustomElementCss($projectPath, '');
 
         //apply template
         if ($data['template_name']) {
             $this->applyTemplate($data['template_name'], $projectPath);
         }
+
+
+        //custom css
+        $this->storage->put("$projectPath/css/code_editor_styles.css", '');
+
+        //custom js
+        $this->storage->put("$projectPath/js/code_editor_scripts.js", '');
+
+        //custom elements css
+        $this->addCustomElementCss($projectPath, '');
 
         //create pages
         if (isset($data['pages'])) {
