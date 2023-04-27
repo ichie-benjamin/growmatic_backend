@@ -1683,21 +1683,14 @@
         let renameUrl = "{{ route('project.page.store', $project->id) }}?action=rename";
         let deleteUrl = "{{ route('project.page.store', $project->id) }}?action=delete";
 
-        {{--let pages =  {!! json_encode($files) !!};--}}
 
-        {{--var pages = {!! !empty($files) ? ('[' . rtrim(json_encode($files), ']') . ']') : '[]' !!};--}}
+        {{--var pages = {!! $files !!}--}}
 
-        {{--var pages = {!! json_encode(array_values($files)) !!};--}}
+        let pages = [
+            // {name:"narrow-jumbotron", title:"Jumbotron",  url: "demo/narrow-jumbotron/index.html", file: "demo/narrow-jumbotron/index.html", assets: ['demo/narrow-jumbotron/narrow-jumbotron.css']},
+            {name: "{{ $project->name }}", title: "{{ $project->slug }}",  url: "{{ asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/index.html') }}", file: "{{ asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/index.html') }}", assets: []}
+        ];
 
-        var pages = {!! $files !!}
-
-
-
-        {{--let pages = [--}}
-        {{--    {{ @json($files) }}--}}
-        {{--    // {name:"narrow-jumbotron", title:"Jumbotron",  url: "demo/narrow-jumbotron/index.html", file: "demo/narrow-jumbotron/index.html", assets: ['demo/narrow-jumbotron/narrow-jumbotron.css']},--}}
-        {{--    --}}{{--{name: "{{ $project->name }}", title: "{{ $project->slug }}",  url: "{{ asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/index.html') }}", file: "{{ asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/index.html') }}", assets: []}--}}
-        {{--];--}}
 
 
         $(function() {
@@ -1717,7 +1710,7 @@
                 Vvveb.SectionList.init();
                 Vvveb.Breadcrumb.init();
 
-                Vvveb.FileManager.addPages(pages);
+                Vvveb.FileManager.addPages({!! $files !!});
                 Vvveb.FileManager.loadPage(pages[firstPage]["name"]);
                 Vvveb.Breadcrumb.init();
 
