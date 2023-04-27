@@ -1689,7 +1689,7 @@
 
         {{--var pages = {!! json_encode(array_values($files)) !!};--}}
 
-        var pages = {!! json_encode(array_values(json_decode($files, true))) !!};
+        var pages = {!! !is_null($files) ? json_encode(array_values(json_decode($files, true))) : '[]' !!};
 
 
 
