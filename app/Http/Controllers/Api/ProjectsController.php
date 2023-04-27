@@ -94,7 +94,7 @@ class ProjectsController extends Controller
         return $this->success(['project' => $this->repository->load($project)]);
     }
 
-    public function savePage($user_id, $slug)
+    public function savePage($project_id)
     {
 
         return $this->request;
