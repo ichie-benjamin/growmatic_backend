@@ -1699,39 +1699,40 @@ Unzip the latest ckeditor release zip from https://github.com/ckeditor/ckeditor4
 let renameUrl = 'save.php?action=rename';
 let deleteUrl = 'save.php?action=delete';
 
-let pages =
-	[
-		// {name:"narrow-jumbotron", title:"Jumbotron",  url: "demo/narrow-jumbotron/index.html", file: "demo/narrow-jumbotron/index.html", assets: ['demo/narrow-jumbotron/narrow-jumbotron.css']},
-		// {name:"landing-page", title:"Landing page",  url: "demo/landing/index.html", file: "demo/landing/index.html", assets: ['demo/landing/css/style.css']},
-		// {name:"album", title:"Album",  url: "demo/album/index.html", file: "demo/album/index.html", folder:"content", assets: ['demo/album/album.css']},
-		// {name:"blog", title:"Blog",  url: "demo/blog/index.html", file: "demo/blog/index.html", folder:"content", assets: ['demo/blog/blog.css']},
-		// {name:"carousel", title:"Carousel",  url: "demo/carousel/index.html",  file: "demo/carousel/index.html", folder:"content", assets: ['demo/carousel/carousel.css']},
-		// {name:"offcanvas", title:"Offcanvas",  url: "demo/offcanvas/index.html", file: "demo/offcanvas/index.html", folder:"content", assets: ['demo/offcanvas/offcanvas.css','demo/offcanvas/offcanvas.js']},
-		// {name:"pricing", title:"Pricing",  url: "demo/pricing/index.html", file: "demo/pricing/index.html", folder:"ecommerce", assets: ['demo/pricing/pricing.css']},
-		// {name:"product", title:"Product",  url: "demo/product/index.html", file: "demo/product/index.html", folder:"ecommerce", assets: ['demo/product/product.css']},
-		//
+let pages = [];
 
-
-
-        //uncomment php code below and rename file to .php extension to load saved html files in the editor or use editor.php
-		/*
-		<?php
-		   $htmlFiles = glob('{my-pages/*.html,demo/*\/*.html, demo/*.html}',  GLOB_BRACE);
-		   foreach ($htmlFiles as $file) {
-			   if (in_array($file, array('new-page-blank-template.html', 'editor.html'))) continue;//skip template files
-			   $pathInfo = pathinfo($file);
-			   $filename = $pathInfo['filename'];
-			   $folder = preg_replace('@/.+?$@', '', $pathInfo['dirname']);
-			   $subfolder = preg_replace('@^.+?/@', '', $pathInfo['dirname']);
-			   if ($filename == 'index' && $subfolder) {
-				   $filename = $subfolder;
-			   }
-			   $url = $pathInfo['dirname'] . '/' . $pathInfo['basename'];
-		?>
-		{name:"<?php echo ucfirst($filename);?>", file:"<?php echo ucfirst($filename);?>", title:"<?php echo ucfirst($filename);?>",  url: "<?php echo $url;?>", folder:"<?php echo $folder?>"},
-		<?php } ?>
-		*/
-	];
+	// [
+	// 	// {name:"narrow-jumbotron", title:"Jumbotron",  url: "demo/narrow-jumbotron/index.html", file: "demo/narrow-jumbotron/index.html", assets: ['demo/narrow-jumbotron/narrow-jumbotron.css']},
+	// 	// {name:"landing-page", title:"Landing page",  url: "demo/landing/index.html", file: "demo/landing/index.html", assets: ['demo/landing/css/style.css']},
+	// 	// {name:"album", title:"Album",  url: "demo/album/index.html", file: "demo/album/index.html", folder:"content", assets: ['demo/album/album.css']},
+	// 	// {name:"blog", title:"Blog",  url: "demo/blog/index.html", file: "demo/blog/index.html", folder:"content", assets: ['demo/blog/blog.css']},
+	// 	// {name:"carousel", title:"Carousel",  url: "demo/carousel/index.html",  file: "demo/carousel/index.html", folder:"content", assets: ['demo/carousel/carousel.css']},
+	// 	// {name:"offcanvas", title:"Offcanvas",  url: "demo/offcanvas/index.html", file: "demo/offcanvas/index.html", folder:"content", assets: ['demo/offcanvas/offcanvas.css','demo/offcanvas/offcanvas.js']},
+	// 	// {name:"pricing", title:"Pricing",  url: "demo/pricing/index.html", file: "demo/pricing/index.html", folder:"ecommerce", assets: ['demo/pricing/pricing.css']},
+	// 	// {name:"product", title:"Product",  url: "demo/product/index.html", file: "demo/product/index.html", folder:"ecommerce", assets: ['demo/product/product.css']},
+	// 	//
+    //
+    //
+    //
+    //     //uncomment php code below and rename file to .php extension to load saved html files in the editor or use editor.php
+	// 	/*
+	// 	<?php
+	// 	   $htmlFiles = glob('{my-pages/*.html,demo/*\/*.html, demo/*.html}',  GLOB_BRACE);
+	// 	   foreach ($htmlFiles as $file) {
+	// 		   if (in_array($file, array('new-page-blank-template.html', 'editor.html'))) continue;//skip template files
+	// 		   $pathInfo = pathinfo($file);
+	// 		   $filename = $pathInfo['filename'];
+	// 		   $folder = preg_replace('@/.+?$@', '', $pathInfo['dirname']);
+	// 		   $subfolder = preg_replace('@^.+?/@', '', $pathInfo['dirname']);
+	// 		   if ($filename == 'index' && $subfolder) {
+	// 			   $filename = $subfolder;
+	// 		   }
+	// 		   $url = $pathInfo['dirname'] . '/' . $pathInfo['basename'];
+	// 	?>
+	// 	{name:"<?php echo ucfirst($filename);?>", file:"<?php echo ucfirst($filename);?>", title:"<?php echo ucfirst($filename);?>",  url: "<?php echo $url;?>", folder:"<?php echo $folder?>"},
+	// 	<?php } ?>
+	// 	*/
+	// ];
 
 $(function() {
 
