@@ -19,7 +19,7 @@ Route::get('/editor/{id}', [HomeController::class, 'editor'])->name('editor_url'
 
 
 //
-Route::get('{path}', function () {
-    return view('index');
-})->where('path', '.*');
+//Route::get('{path}', function () {
+//    return view('index');
+//})->where('path', '.*');
 
