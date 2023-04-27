@@ -1687,7 +1687,10 @@
 
         {{--var pages = {!! !empty($files) ? ('[' . rtrim(json_encode($files), ']') . ']') : '[]' !!};--}}
 
-        var pages = {!! json_encode(array_values($files)) !!};
+        {{--var pages = {!! json_encode(array_values($files)) !!};--}}
+
+        var pages = {!! json_encode(array_values(json_decode($files, true))) !!};
+
 
 
         {{--let pages = [--}}
