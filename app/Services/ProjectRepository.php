@@ -84,7 +84,7 @@ class ProjectRepository
     public function getProjectPath(Project $project, bool $absolute = false): string {
         // get user id from pivot in case user was deleted
 
-        $path = "{$project->user_id}/{$project->id}";
+        $path = "{$project->user_id}/{$project->slug}";
 
         return $absolute ? public_path("builder/projects/$path") : $path;
     }
@@ -212,10 +212,10 @@ class ProjectRepository
         );
 
         //custom css
-        $this->storage->put("$projectPath/css/code_editor_styles.css", '');
+        $this->storage->put("$projectPath/css/code_editor_styles.css", '', 0777);
 
         //custom js
-        $this->storage->put("$projectPath/js/code_editor_scripts.js", '');
+        $this->storage->put("$projectPath/js/code_editor_scripts.js", '',0777);
 
         //custom elements css
         $this->addCustomElementCss($projectPath, '');
@@ -347,6 +347,7 @@ class ProjectRepository
             $this->storage->put(
                 $innerPath,
                 Storage::disk('builder')->get($templateFilePath),
+                0777
             );
         }
 
