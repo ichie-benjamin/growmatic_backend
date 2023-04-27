@@ -1702,6 +1702,8 @@
                 });
 
 
+                console.log(pages)
+
                 Vvveb.Gui.init();
                 Vvveb.FileManager.init();
                 Vvveb.SectionList.init();
