@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProjectsController;
+use App\Http\Controllers\Api\TemplatesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductController;
@@ -71,7 +72,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
 
         //BUILDER
         Route::apiResources(['projects' => ProjectsController::class]);
-        Route::get('templates', [ProjectsController::class, 'templates']);
+        Route::get('templates', [TemplatesController::class, 'index']);
 
 
     });

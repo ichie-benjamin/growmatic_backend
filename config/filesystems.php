@@ -44,6 +44,20 @@ return [
             'throw' => false,
         ],
 
+        'builder' => [
+            'driver' => 'local',
+            'root' => public_path('builder'),
+            'url' => env('APP_URL').'/builder',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'projects' => [
+            'driver' => 'local',
+            'root' => public_path('builder/projects'),
+        ],
+
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
