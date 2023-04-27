@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use League\Flysystem\Visibility;
 
 
 class ProjectRepository
@@ -212,10 +213,10 @@ class ProjectRepository
         );
 
         //custom css
-        $this->storage->put("$projectPath/css/code_editor_styles.css", '', 0777);
+        $this->storage->put("$projectPath/css/code_editor_styles.css", '', Visibility::PUBLIC);
 
         //custom js
-        $this->storage->put("$projectPath/js/code_editor_scripts.js", '',0777);
+        $this->storage->put("$projectPath/js/code_editor_scripts.js", '',Visibility::PUBLIC);
 
         //custom elements css
         $this->addCustomElementCss($projectPath, '');
@@ -347,7 +348,7 @@ class ProjectRepository
             $this->storage->put(
                 $innerPath,
                 Storage::disk('builder')->get($templateFilePath),
-                0777
+                Visibility::PUBLIC
             );
         }
 
