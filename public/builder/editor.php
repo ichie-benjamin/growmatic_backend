@@ -44,6 +44,6 @@ $html = str_replace('(pages);', "([$files]);", $html);
 
 $save_url = "https://growmatic.bennyondev.com/api/v1/project/page/$u/$p";
 
-$html = str_replace('SAVE_URL', '', $html);
+$html = str_replace('SAVE_URL', $save_url, $html);
 
 echo $html;
