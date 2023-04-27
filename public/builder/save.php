@@ -22,7 +22,7 @@ define('MAX_FILE_LIMIT', 1024 * 1024 * 2);//2 Megabytes max html file size
 function sanitizeFileName($file, $allowedExtension = 'html') {
 	//sanitize, remove double dot .. and remove get parameters if any
 	$file = __DIR__ . '/' . preg_replace('@\?.*$@' , '', preg_replace('@\.{2,}@' , '', preg_replace('@[^\/\\a-zA-Z0-9\-\._]@', '', $file)));
-	
+
 	//allow only .html extension
 	if ($allowedExtension) {
 		$file = preg_replace('/\..+$/', '', $file) . ".$allowedExtension";
@@ -81,6 +81,13 @@ if ($action) {
 	}
 } else {
 	//save page
+
+    $d['html'] = $html;
+    $d['file'] = $file;
+    $d['$dir'] =  dirname($file);
+
+    return $d;
+
 	if ($html) {
 		if ($file) {
 			$dir = dirname($file);
@@ -97,7 +104,7 @@ if ($action) {
 				echo "File saved '$file'";
 			} else {
 				showError("Error saving file '$file'\nPossible causes are missing write permission or incorrect file path!");
-			}	
+			}
 		} else {
 			showError('Filename is empty!');
 		}
