@@ -1740,21 +1740,24 @@ $(function() {
         Vvveb.Builder.init(pages[firstPage]["url"], function () {
             //load code after page is loaded here
         });
+
+
+        Vvveb.Gui.init();
+        Vvveb.FileManager.init();
+        Vvveb.SectionList.init();
+        Vvveb.Breadcrumb.init();
+
+        Vvveb.FileManager.addPages(pages);
+        Vvveb.FileManager.loadPage(pages[firstPage]["name"]);
+        Vvveb.Breadcrumb.init();
+
+        //if url has #no-right-panel set one panel demo
+        if (window.location.hash.indexOf("no-right-panel") != -1) {
+            Vvveb.Gui.toggleRightColumn();
+        }
     }
 
-	Vvveb.Gui.init();
-	Vvveb.FileManager.init();
-	Vvveb.SectionList.init();
-	Vvveb.Breadcrumb.init();
 
-	Vvveb.FileManager.addPages(pages);
-	Vvveb.FileManager.loadPage(pages[firstPage]["name"]);
-	Vvveb.Breadcrumb.init();
-
-	//if url has #no-right-panel set one panel demo
-	if (window.location.hash.indexOf("no-right-panel") != -1) {
-		Vvveb.Gui.toggleRightColumn();
-	}
 });
 </script>
 </body>
