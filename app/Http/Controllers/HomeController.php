@@ -32,7 +32,7 @@ class HomeController extends Controller
 
 
 // Remove the trailing comma from the $files string
-        $files = rtrim($files, ',');
+        $files = "[".rtrim($files, ',')."]";
 
 //        return response()->json($files);
         return view('editor', compact('project', 'files'));
