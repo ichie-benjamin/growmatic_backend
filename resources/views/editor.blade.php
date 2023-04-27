@@ -1684,8 +1684,9 @@
         let deleteUrl = "{{ route('project.page.store', $project->id) }}?action=delete";
 
         let pages = [
+            @json($files)
             // {name:"narrow-jumbotron", title:"Jumbotron",  url: "demo/narrow-jumbotron/index.html", file: "demo/narrow-jumbotron/index.html", assets: ['demo/narrow-jumbotron/narrow-jumbotron.css']},
-            {name: "{{ $project->name }}", title: "{{ $project->slug }}",  url: "{{ asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/index.html') }}", file: "{{ asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/index.html') }}", assets: []}
+            {{--{name: "{{ $project->name }}", title: "{{ $project->slug }}",  url: "{{ asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/index.html') }}", file: "{{ asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/index.html') }}", assets: []}--}}
         ];
 
 
@@ -1706,7 +1707,7 @@
                 Vvveb.SectionList.init();
                 Vvveb.Breadcrumb.init();
 
-                Vvveb.FileManager.addPages([@json($files)]);
+                Vvveb.FileManager.addPages(pages);
                 Vvveb.FileManager.loadPage(pages[firstPage]["name"]);
                 Vvveb.Breadcrumb.init();
 
