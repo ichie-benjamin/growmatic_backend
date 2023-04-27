@@ -42,9 +42,9 @@ foreach ($htmlFiles as $file) {
 //replace files list from html with the dynamic list from demo folder
 $html = str_replace('(pages);', "([$files]);", $html);
 
-dd($files);
+$pagesJson = json_encode($files);
 
-$html = str_replace('let pages = [];', 'let pages = ' . $files . ';', $html);
+$html = str_replace('let pagesData = null;', "let pagesData = $pagesJson;", $html);
 
 
 echo $html;

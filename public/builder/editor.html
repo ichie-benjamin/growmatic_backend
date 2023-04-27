@@ -1699,7 +1699,9 @@ Unzip the latest ckeditor release zip from https://github.com/ckeditor/ckeditor4
 let renameUrl = 'save.php?action=rename';
 let deleteUrl = 'save.php?action=delete';
 
-let pages = [];
+// let pages = [];
+
+let pages = (pagesData) ? pagesData : [];
 
 	// [
 	// 	// {name:"narrow-jumbotron", title:"Jumbotron",  url: "demo/narrow-jumbotron/index.html", file: "demo/narrow-jumbotron/index.html", assets: ['demo/narrow-jumbotron/narrow-jumbotron.css']},
