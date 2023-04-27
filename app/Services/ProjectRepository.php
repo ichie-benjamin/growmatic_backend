@@ -324,33 +324,38 @@ class ProjectRepository
         $templateName = strtolower(Str::kebab($templateName));
 
         // copy template files recursively
-        foreach (Storage::disk('builder')->allFiles("templates/$templateName") as $templateFilePath) {
-            $innerPath = str_replace(
-                'templates' . DIRECTORY_SEPARATOR . $templateName,
-                $projectPath,
-                $templateFilePath,
-            );
+//        foreach (Storage::disk('builder')->allFiles("templates/$templateName") as $templateFilePath) {
+//            $innerPath = str_replace(
+//                'templates' . DIRECTORY_SEPARATOR . $templateName,
+//                $projectPath,
+//                $templateFilePath,
+//            );
+//
+//            // don't override project styles file
+//            if (Str::contains($innerPath, 'code_editor_styles.css')) {
+//                continue;
+//            }
+//
+//            // don't copy over template config file
+//            if (Str::contains($innerPath, 'config.json')) {
+//                continue;
+//            }
+//
+//            if ($this->storage->exists($innerPath) && !$overrideFiles) {
+//                continue;
+//            }
+//
+//            $this->storage->put(
+//                $innerPath,
+//                Storage::disk('builder')->get($templateFilePath),
+//                Visibility::PUBLIC
+//            );
+//        }
 
-            // don't override project styles file
-            if (Str::contains($innerPath, 'code_editor_styles.css')) {
-                continue;
-            }
-
-            // don't copy over template config file
-            if (Str::contains($innerPath, 'config.json')) {
-                continue;
-            }
-
-            if ($this->storage->exists($innerPath) && !$overrideFiles) {
-                continue;
-            }
-
-            $this->storage->put(
-                $innerPath,
-                Storage::disk('builder')->get($templateFilePath),
-                Visibility::PUBLIC
-            );
-        }
+        File::copyDirectory(
+            public_path("builder/templates/$templateName"),
+            public_path("builder/projects/$projectPath"),
+        );
 
         //thumbnail
         $this->storage->put(
