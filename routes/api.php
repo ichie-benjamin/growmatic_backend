@@ -43,6 +43,12 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::post('change_pass', [AuthController::class, 'changePassword']);
     });
 
+
+    //PAGE
+    Route::post('/project/page/{user_id}/{project}', [ProjectsController::class, 'savePage']);
+
+
+
     Route::middleware('auth:sanctum')->group(function () {
         Route::apiResources([
             'products' => ProductController::class,
@@ -73,9 +79,6 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         //BUILDER
         Route::apiResources(['projects' => ProjectsController::class]);
         Route::get('templates', [TemplatesController::class, 'index']);
-
-        //PAGE
-        Route::post('/project/page/{user_id}/{project}', [ProjectsController::class, 'savePage']);
 
 
     });

@@ -102,20 +102,10 @@ class ProjectRepository
     public function update(Project $project, $data, $overrideFiles = true)
     {
         // change owner of project
-        if (
-            Arr::get($data, 'users') &&
-            $project->users->first()->id !== $data['users'][0]['id']
-        ) {
-            $oldPath = $this->getProjectPath(
-                $project,
-                true,
-                $project->users->first()->id,
-            );
-            $newPath = $this->getProjectPath(
-                $project,
-                true,
-                $data['users'][0]['id'],
-            );
+        if (Arr::get($data, 'users') && $project->users->first()->id !== $data['users'][0]['id']) {
+            $oldPath = $this->getProjectPath($project, true, $project->users->first()->id,);
+            $newPath = $this->getProjectPath($project, true, $data['users'][0]['id'],);
+
             File::ensureDirectoryExists($newPath);
             if (File::moveDirectory($oldPath, $newPath, true)) {
                 app(CustomDomain::class)
