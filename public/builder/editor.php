@@ -42,4 +42,7 @@ foreach ($htmlFiles as $file) {
 //replace files list from html with the dynamic list from demo folder
 $html = str_replace('(pages);', "([$files]);", $html);
 
+$html = str_replace('let pages = [];', 'let pages = ' . $files . ';', $html);
+
+
 echo $html;
