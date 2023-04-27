@@ -20,7 +20,7 @@ if (isset($_GET['u']) && isset($_GET['p'])) {
 
 //search for html files in demo and my-pages folders
 //$htmlFiles = glob('{my-pages/*.html,demo/*\/*.html, demo/*.html}',  GLOB_BRACE);
-$htmlFiles = glob('{' . $path . '/*.html,' . $path . '/*/*.html, ',  GLOB_BRACE);
+$htmlFiles = glob('{' . $path . '/*.html,' . $path . '/*/*.html}',  GLOB_BRACE);
 
 $files = '';
 foreach ($htmlFiles as $file) {
