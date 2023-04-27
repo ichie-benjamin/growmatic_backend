@@ -11,7 +11,7 @@
     <base href="">
     <title>Growmatic Builder</title>
 
-{{--    <meta name="csrf-token" content="{{ csrf_token() }}">--}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link href="/builder/css/editor.css" rel="stylesheet">
 
