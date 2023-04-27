@@ -1735,10 +1735,12 @@ let pages =
 
 $(function() {
 
-	let firstPage = Object.keys(pages)[0];
-	Vvveb.Builder.init(pages[firstPage]["url"], function() {
-		//load code after page is loaded here
-	});
+    if (Object.keys(pages).length > 0) {
+        let firstPage = Object.keys(pages)[0];
+        Vvveb.Builder.init(pages[firstPage]["url"], function () {
+            //load code after page is loaded here
+        });
+    }
 
 	Vvveb.Gui.init();
 	Vvveb.FileManager.init();
