@@ -40,11 +40,11 @@ foreach ($htmlFiles as $file) {
 
 
 //replace files list from html with the dynamic list from demo folder
-//$html = str_replace('(pages);', "([$files]);", $html);
+$html = str_replace('(pages);', "([$files]);", $html);
 
 $pagesJson = json_encode($files);
 
-$html = str_replace('let pagesData = null;', "let pagesData = $pagesJson;", $html);
-
+//$html = str_replace('let pagesData = null;', "let pagesData = $pagesJson;", $html);
+$html = str_replace('REPLACE_PAGES_DATA', $pagesJson, $html);
 
 echo $html;
