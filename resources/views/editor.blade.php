@@ -1683,7 +1683,10 @@
         let renameUrl = "{{ route('project.page.store', $project->id) }}?action=rename";
         let deleteUrl = "{{ route('project.page.store', $project->id) }}?action=delete";
 
-        let pages =  {!! json_encode($files) !!};
+        {{--let pages =  {!! json_encode($files) !!};--}}
+
+        var pages = {!! !empty($files) ? ('[' . rtrim(json_encode($files), ']') . ']') : '[]' !!};
+
 
         {{--let pages = [--}}
         {{--    {{ @json($files) }}--}}
