@@ -1699,10 +1699,13 @@ Unzip the latest ckeditor release zip from https://github.com/ckeditor/ckeditor4
 let renameUrl = 'save.php?action=rename';
 let deleteUrl = 'save.php?action=delete';
 
-// let pages = [];
-let pagesData = null;
+const searchParams = new URLSearchParams(window.location.search);
+const user = searchParams.get('u');
+const project = searchParams.get('p');
 
-let pages = (REPLACE_PAGES_DATA) ? REPLACE_PAGES_DATA : [];
+let pages = [
+    {name:project, title: project,  url: "projects/"+user+"/"+project+"/index.html", file: "projects/"+user+"/"+project+"/index.html", assets: []}
+];
 
 	// [
 	// 	// {name:"narrow-jumbotron", title:"Jumbotron",  url: "demo/narrow-jumbotron/index.html", file: "demo/narrow-jumbotron/index.html", assets: ['demo/narrow-jumbotron/narrow-jumbotron.css']},
