@@ -55,6 +55,7 @@ return [
         'projects' => [
             'driver' => 'local',
             'root' => public_path('builder/projects'),
+            'visibility' => 'public',
         ],
 
 
