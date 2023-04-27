@@ -1683,11 +1683,13 @@
         let renameUrl = "{{ route('project.page.store', $project->id) }}?action=rename";
         let deleteUrl = "{{ route('project.page.store', $project->id) }}?action=delete";
 
-        let pages = [
-            @json($files)
-            // {name:"narrow-jumbotron", title:"Jumbotron",  url: "demo/narrow-jumbotron/index.html", file: "demo/narrow-jumbotron/index.html", assets: ['demo/narrow-jumbotron/narrow-jumbotron.css']},
-            {{--{name: "{{ $project->name }}", title: "{{ $project->slug }}",  url: "{{ asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/index.html') }}", file: "{{ asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/index.html') }}", assets: []}--}}
-        ];
+        let pages =  {!! json_encode($files) !!};
+
+        {{--let pages = [--}}
+        {{--    {{ @json($files) }}--}}
+        {{--    // {name:"narrow-jumbotron", title:"Jumbotron",  url: "demo/narrow-jumbotron/index.html", file: "demo/narrow-jumbotron/index.html", assets: ['demo/narrow-jumbotron/narrow-jumbotron.css']},--}}
+        {{--    --}}{{--{name: "{{ $project->name }}", title: "{{ $project->slug }}",  url: "{{ asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/index.html') }}", file: "{{ asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/index.html') }}", assets: []}--}}
+        {{--];--}}
 
 
         $(function() {
