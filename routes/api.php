@@ -74,6 +74,9 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::apiResources(['projects' => ProjectsController::class]);
         Route::get('templates', [TemplatesController::class, 'index']);
 
+        //PAGE
+        Route::post('/project/save/{user_id}/{project}', [ProjectsController::class, 'savePage']);
+
 
     });
 

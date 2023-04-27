@@ -92,7 +92,7 @@
 
 
 					<div class="btn-group me-3 float-end" role="group">
-					  <button class="btn btn-primary btn-icon" title="Export (Ctrl + E)" id="save-btn" data-vvveb-action="saveAjax" data-vvveb-url="save.php" data-v-vvveb-shortcut="ctrl+e">
+					  <button class="btn btn-primary btn-icon" title="Export (Ctrl + E)" id="save-btn" data-vvveb-action="saveAjax" data-vvveb-url="SAVE_URL" data-v-vvveb-shortcut="ctrl+e">
 
 						<span class="loading d-none">
 						<i class="la la-save"></i>
@@ -1507,7 +1507,7 @@
 <div class="modal fade" id="new-page-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
 
-    <form action="save.php">
+    <form action="SAVE_URL">
 
     <div class="modal-content">
       <div class="modal-header">
@@ -1696,8 +1696,8 @@ Unzip the latest ckeditor release zip from https://github.com/ckeditor/ckeditor4
 <script src="libs/autocomplete/jquery.autocomplete.js"></script>
 
 <script>
-let renameUrl = 'save.php?action=rename';
-let deleteUrl = 'save.php?action=delete';
+let renameUrl = 'SAVE_URL?action=rename';
+let deleteUrl = 'SAVE_URL?action=delete';
 
 const searchParams = new URLSearchParams(window.location.search);
 const user = searchParams.get('u');

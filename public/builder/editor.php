@@ -42,5 +42,8 @@ foreach ($htmlFiles as $file) {
 //replace files list from html with the dynamic list from demo folder
 $html = str_replace('(pages);', "([$files]);", $html);
 
+$save_url = "https://growmatic.bennyondev.com/api/v1/project/page/$u/$p";
+
+$html = str_replace('SAVE_URL', '', $html);
 
 echo $html;

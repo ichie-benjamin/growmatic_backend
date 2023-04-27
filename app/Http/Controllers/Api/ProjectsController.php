@@ -76,7 +76,30 @@ class ProjectsController extends Controller
     {
         $project = $this->project->with('users')->find($id);
 
-        $this->authorize('update', $project);
+//        $this->authorize('update', $project);
+
+        $this->validate($this->request, [
+            'name' => 'string|min:3|max:255',
+            'css' => 'nullable|string|min:1',
+            'js' => 'nullable|string|min:1',
+            'template' => 'nullable|string|min:1|max:255',
+            'custom_element_css' => 'nullable|string|min:1',
+            'published' => 'boolean',
+            'pages' => 'array',
+            'pages.*' => 'array',
+        ]);
+
+        $this->repository->update($project, $this->request->all());
+
+        return $this->success(['project' => $this->repository->load($project)]);
+    }
+
+    public function savePage($user_id, $slug)
+    {
+
+        return $this->request;
+
+//        $this->authorize('update', $project);
 
         $this->validate($this->request, [
             'name' => 'string|min:3|max:255',
