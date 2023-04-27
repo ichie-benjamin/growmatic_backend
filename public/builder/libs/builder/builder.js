@@ -1921,6 +1921,9 @@ Vvveb.Builder = {
                 $("#top-panel .save-btn").attr("disabled", true);
             },
             error: function(xhr, status, error) {
+                console.log(error)
+                console.log(status)
+                console.log(xhr)
                 if (xhr.status === 401) {
                     alert("Unauthorized");
                 } else {
