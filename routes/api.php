@@ -45,8 +45,8 @@ Route::group(['prefix' => 'v1/'], function ($router) {
 
 
     //PAGE
-    Route::post('/project/page/{user_id}/{project}', [ProjectsController::class, 'savePage'])->withoutMiddleware(['csrf']);
-    Route::get('/project/page/{user_id}/{project}', [ProjectsController::class, 'savePage']);
+    Route::post('/project/page/{user_id}/{project}', [ProjectsController::class, 'savePage'])->name('project.page.store');
+//    Route::get('/project/page/{user_id}/{project}', [ProjectsController::class, 'savePage']);
 
 
 
