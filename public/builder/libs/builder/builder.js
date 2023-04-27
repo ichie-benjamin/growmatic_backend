@@ -1886,25 +1886,48 @@ Vvveb.Builder = {
 			data["html"] = this.getHtml();
 		}
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     }
+        // });
+        //
+        //
+        // return $.ajax({
+		// 	type: "POST",
+		// 	url: saveUrl,//set your server side save script url
+		// 	data: data,
+		// 	cache: false,
+		// }).done(function (data) {
+		// 		if (callback) callback(data);
+		// 		Vvveb.Undo.reset();
+		// 	$("#top-panel .save-btn").attr("disabled", "true");
+		// }).fail(function (data) {
+		// 		alert(data.responseText);
+		// });
 
 
         return $.ajax({
-			type: "POST",
-			url: saveUrl,//set your server side save script url
-			data: data,
-			cache: false,
-		}).done(function (data) {
-				if (callback) callback(data);
-				Vvveb.Undo.reset();
-			$("#top-panel .save-btn").attr("disabled", "true");
-		}).fail(function (data) {
-				alert(data.responseText);
-		});
+            type: "POST",
+            url: saveUrl,
+            data: data,
+            cache: false,
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(data) {
+                if (callback) callback(data);
+                Vvveb.Undo.reset();
+                $("#top-panel .save-btn").attr("disabled", true);
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status === 401) {
+                    alert("Unauthorized");
+                } else {
+                    alert(error);
+                }
+            }
+        });
 	},
 
 	setDesignerMode: function(designerMode = false)
