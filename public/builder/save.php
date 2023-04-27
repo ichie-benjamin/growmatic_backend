@@ -41,6 +41,9 @@ $action = '';
 
 if (isset($_POST['startTemplateUrl']) && !empty($_POST['startTemplateUrl'])) {
 	$startTemplateUrl = sanitizeFileName($_POST['startTemplateUrl']);
+
+
+    return $startTemplateUrl;
 	$html = file_get_contents($startTemplateUrl);
 } else if (isset($_POST['html'])){
 	$html = substr($_POST['html'], 0, MAX_FILE_LIMIT);
