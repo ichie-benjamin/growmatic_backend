@@ -44,6 +44,8 @@ $html = str_replace('(pages);', "([$files]);", $html);
 
 $pagesJson = json_encode($files);
 
+dd($pagesJson);
+
 //$html = str_replace('let pagesData = null;', "let pagesData = $pagesJson;", $html);
 $html = str_replace('REPLACE_PAGES_DATA', $pagesJson, $html);
 
