@@ -2067,8 +2067,12 @@ Vvveb.Gui = {
 		$(".loading", btn).toggleClass("d-none");
 		$(".button-text", btn).toggleClass("d-none");
 
-		return Vvveb.Builder.saveAjax(url, null, null, saveUrl).done(function (data, text) {
-			/*
+		return Vvveb.Builder.saveAjax(url, null, null, saveUrl).then(function (data, text) {
+
+            console.log(data)
+
+
+            /*
 			//use modal to show save status
 			var messageModal = new bootstrap.Modal(document.getElementById('message-modal'), {
 			  keyboard: false
