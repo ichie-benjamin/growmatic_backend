@@ -2059,7 +2059,7 @@ Vvveb.Gui = {
 	},
 
 	//post html content through ajax to save to filesystem/db
-	saveAjax : function () {
+	saveAjax : function (onrejected) {
 		var btn = $(this);
 		var saveUrl = this.dataset.vvvebUrl;
 		var url = Vvveb.FileManager.getPageData('file');
@@ -2067,34 +2067,24 @@ Vvveb.Gui = {
 		$(".loading", btn).toggleClass("d-none");
 		$(".button-text", btn).toggleClass("d-none");
 
-		return Vvveb.Builder.saveAjax(url, null, null, saveUrl).then(function (data, text) {
+		return Vvveb.Builder.saveAjax(url, null, null, saveUrl).then(function (response) {
+
+            let data = response.data
 
             console.log(data)
 
+            let bg = "bg-success";
+            if (data.success) {
+                $("#top-panel .save-btn").attr("disabled", "true");
+            } else {
+                bg = "bg-danger";
+            }
+            displayToast(bg, data.message ?? data);
+        }).catch(function (error) {
+            console.log(error)
 
-            /*
-			//use modal to show save status
-			var messageModal = new bootstrap.Modal(document.getElementById('message-modal'), {
-			  keyboard: false
-			});
-
-			$("#message-modal .modal-body").html(data);
-			messageModal.show();
-			*/
-
-			//use toast to show save status
-
-			let bg = "bg-success";
-			if (data.success || text == "success") {
-				$("#top-panel .save-btn").attr("disabled", "true");
-			} else {
-				bg = "bg-danger";
-			}
-			displayToast(bg, data.message ?? data);
-		}, saveUrl).fail(function (data, text, errorThrown) {
-			displayToast("bg-danger", "Error saving!");
-		}, saveUrl).always(function (data) {
-			$(".loading", btn).toggleClass("d-none");
+            displayToast("bg-danger", "Error saving!");
+            $(".loading", btn).toggleClass("d-none");
 			$(".button-text", btn).toggleClass("d-none");
 		});
 	},
