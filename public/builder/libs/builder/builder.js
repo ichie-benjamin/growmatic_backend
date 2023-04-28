@@ -1907,28 +1907,44 @@ Vvveb.Builder = {
 		// });
 
 
-        return $.ajax({
-            type: "POST",
-            url: "https://growmatic.bennyondev.com/api/v1/project/page/9907cfa6-08c6-43b2-b2c4-ec879eb5426e?action=rename",
-            data: data,
-            cache: false,
+        // return $.ajax({
+        //     type: "POST",
+        //     url: "https://growmatic.bennyondev.com/api/v1/project/page/9907cfa6-08c6-43b2-b2c4-ec879eb5426e?action=rename",
+        //     data: data,
+        //     cache: false,
+        //     headers: {
+        //         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        //     },
+        //     success: function(data) {
+        //         if (callback) callback(data);
+        //         Vvveb.Undo.reset();
+        //         $("#top-panel .save-btn").attr("disabled", true);
+        //     },
+        //     error: function(xhr, status, error) {
+        //         console.log(error)
+        //         console.log(status)
+        //         console.log(xhr)
+        //         if (xhr.status === 401) {
+        //             alert("Unauthorized");
+        //         } else {
+        //             alert(error);
+        //         }
+        //     }
+        // });
+
+        return axios.post(saveUrl, data, {
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(data) {
-                if (callback) callback(data);
-                Vvveb.Undo.reset();
-                $("#top-panel .save-btn").attr("disabled", true);
-            },
-            error: function(xhr, status, error) {
-                console.log(error)
-                console.log(status)
-                console.log(xhr)
-                if (xhr.status === 401) {
-                    alert("Unauthorized");
-                } else {
-                    alert(error);
-                }
+            }
+        }).then(function(response) {
+            if (callback) callback(response.data);
+            Vvveb.Undo.reset();
+            $("#top-panel .save-btn").attr("disabled", true);
+        }).catch(function(error) {
+            if (error.response.status === 401) {
+                alert("Unauthorized");
+            } else {
+                alert(error.message);
             }
         });
 	},

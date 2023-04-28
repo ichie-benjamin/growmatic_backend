@@ -1618,6 +1618,8 @@
     <script src="/builder/js/popper.min.js"></script>
     <script src="/builder/js/bootstrap.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
     <!-- builder code-->
     <script src="/builder/libs/builder/builder.js"></script>
     <!-- undo manager-->
