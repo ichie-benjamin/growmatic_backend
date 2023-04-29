@@ -1573,7 +1573,12 @@
                             <label class="col-sm-3 col-form-label">Save to folder</label>
                             <div class="col-sm-9 input">
                                 <div>
-                                    <input name="folder" type="text" value="my-pages" class="form-control" placeholder="/" required>
+                                    <select name="folder" required class="form-control">
+                                    <option value="/">Root</option>
+                                    @foreach($files as $item)
+                                        <option value="{{ $item['folder'] }}">{{ $item['folder'] }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -1682,16 +1687,16 @@
     <script src="/builder/libs/autocomplete/jquery.autocomplete.js"></script>
 
     <script>
-        let renameUrl = "{{ route('project.page.store', $project->id) }}?action=rename";
-        let deleteUrl = "{{ route('project.page.store', $project->id) }}?action=delete";
+        let renameUrl = "{{ route('project.page.edit', $project->id) }}";
+        let deleteUrl = "{{ route('project.page.delete', $project->id) }}";
 
 
-        {{--var pages = {!! $files !!}--}}
+        var pages = @json($files)
 
-        let pages = [
-            // {name:"narrow-jumbotron", title:"Jumbotron",  url: "demo/narrow-jumbotron/index.html", file: "demo/narrow-jumbotron/index.html", assets: ['demo/narrow-jumbotron/narrow-jumbotron.css']},
-            {name: "{{ $project->name }}", title: "{{ $project->slug }}",  url: "{{ asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/index.html') }}", file: "{{ 'builder/projects/'.$project->user_id.'/'.$project->slug.'/index.html' }}", assets: []}
-        ];
+        {{--let pages = [--}}
+        {{--    // {name:"narrow-jumbotron", title:"Jumbotron",  url: "demo/narrow-jumbotron/index.html", file: "demo/narrow-jumbotron/index.html", assets: ['demo/narrow-jumbotron/narrow-jumbotron.css']},--}}
+        {{--    {name: "{{ $project->name }}", title: "{{ $project->slug }}",  url: "{{ asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/index.html') }}", file: "{{ 'index.html' }}", assets: []}--}}
+        {{--];--}}
 
 
 

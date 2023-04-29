@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PagesController;
 use App\Http\Controllers\Api\ProjectsController;
 use App\Http\Controllers\Api\TemplatesController;
 use Illuminate\Http\Request;
@@ -45,7 +46,11 @@ Route::group(['prefix' => 'v1/'], function ($router) {
 
 
     //PAGE
-    Route::post('/project/page/{project_id}', [ProjectsController::class, 'savePage'])->name('project.page.store');
+    Route::post('/project/page/{project_id}', [PagesController::class, 'store'])->name('project.page.store');
+    Route::post('/project/delete/{project_id}', [PagesController::class, 'delete'])->name('project.page.delete');
+    Route::post('/project/edit/{project_id}', [PagesController::class, 'edit'])->name('project.page.edit');
+
+
     Route::get('/project/page/{project}', [ProjectsController::class, 'savePage']);
 
 

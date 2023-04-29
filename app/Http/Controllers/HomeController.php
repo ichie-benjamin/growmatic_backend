@@ -10,29 +10,39 @@ class HomeController extends Controller
     public function editor($project_id){
         $project = Project::findOrFail($project_id);
 
-        $path = public_path('builder/projects/'.$project->user_id.'/'.$project->slug);
+
+        $path = public_path("builder/projects/{$project->user_id}/{$project->slug}");
+
+
 
         $htmlFiles = glob("{{$path}/*.html,{$path}/*/*.html}", GLOB_BRACE);
 
-        $files = '';
+//        $htmlFiles = glob("{$path}/*.html");
+
+        $files = [];
         foreach ($htmlFiles as $file) {
-            if (in_array($file, array('new-page-blank-template.html', 'editor.html'))) continue;
-            $pathInfo = pathinfo($file);
-            $filename = $pathInfo['filename'];
-            $folder = preg_replace('@/.+?$@', '', $pathInfo['dirname']);
-            $subfolder = preg_replace('@^.+?/@', '', $pathInfo['dirname']);
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+
+            $subfolder = preg_replace('@^.+?/@', '', pathinfo($file, PATHINFO_DIRNAME));
             if ($filename == 'index' && $subfolder) {
-                $filename = $subfolder;
+                $filename = basename(dirname($file));
             }
-            $url = $pathInfo['dirname'] . '/' . $pathInfo['basename'];
+
+            if (in_array($filename, ['new-page-blank-template', 'editor'])) {
+                continue;
+            }
+            $url = str_replace($path . '/', '', $file);
             $name = ucfirst($filename);
-
-            $files .= "{name:'$name', file:'$file', title:'$name',  url: '$url', folder:'$folder'},";
+            $c_file = str_replace($path.'/','',$file);
+            $folder = basename(dirname($file));
+            $files[] = [
+                'name' => $name,
+                'file' => $c_file,
+                'title' => $filename,
+                'url' => asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/'.$c_file),
+                'folder' => $folder,
+            ];
         }
-
-
-// Remove the trailing comma from the $files string
-        $files = "[".rtrim($files, ',')."]";
 
 //        return response()->json($files);
         return view('editor', compact('project', 'files'));

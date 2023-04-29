@@ -43,11 +43,39 @@ if (isset($_POST['startTemplateUrl']) && !empty($_POST['startTemplateUrl'])) {
 	$startTemplateUrl = sanitizeFileName($_POST['startTemplateUrl']);
 
 
-    return $startTemplateUrl;
+//    return $startTemplateUrl;
 	$html = file_get_contents($startTemplateUrl);
-} else if (isset($_POST['html'])){
+} else
+
+
+    if (isset($_POST['html'])){
 	$html = substr($_POST['html'], 0, MAX_FILE_LIMIT);
-}
+
+        if ($html) {
+            if ($file) {
+                $dir = dirname($file);
+                if (!is_dir($dir)) {
+                    echo "$dir folder does not exist\n";
+                    if (mkdir($dir, 0777, true)) {
+                        echo "$dir folder was created\n";
+                    } else {
+                        showError("Error creating folder '$dir'\n");
+                    }
+                }
+
+                if (file_put_contents($file, $html)) {
+                    echo "File saved '$file'";
+                } else {
+                    showError("Error saving file '$file'\nPossible causes are missing write permission or incorrect file path!");
+                }
+            } else {
+                showError('Filename is empty!');
+            }
+        } else {
+            showError('Html content is empty!');
+        }
+
+    }
 
 if (isset($_POST['file'])) {
 	$file = sanitizeFileName($_POST['file'], false);
@@ -89,7 +117,6 @@ if ($action) {
     $d['file'] = $file;
     $d['$dir'] =  dirname($file);
 
-    return $d;
 
 	if ($html) {
 		if ($file) {
