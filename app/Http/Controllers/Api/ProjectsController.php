@@ -151,7 +151,7 @@ class ProjectsController extends Controller
 
         $this->repository->delete($project);
 
-        return $this->successResponse('project successfully deleted', $project);
+        return $this->successResponse($project->name.' successfully deleted', $project);
 
 //        $projectIds = explode(',', $ids);
 //        foreach ($projectIds as $id) {
