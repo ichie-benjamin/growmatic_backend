@@ -15,7 +15,7 @@ class Project extends Model
 
     protected $guarded = [];
 
-    protected $appends = ['thumb_url','editor_url'];
+    protected $appends = ['thumb_url','editor_url','preview_url'];
 
     protected $casts = [
         'published' => 'boolean'
@@ -69,6 +69,12 @@ class Project extends Model
     public function getEditorUrlAttribute(): string
     {
         return route('editor_url', $this->id);
+    }
+
+    public function getPreviewUrlAttribute(): string
+    {
+        $project_path = 'builder/projects/'.$this->user_id.'/'.$this->slug.'/index.html';
+        return asset($project_path);
     }
 
     public function setSettingsAttribute(array $value)
