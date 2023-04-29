@@ -63,7 +63,7 @@ class Project extends Model
 
     public function getThumbUrlAttribute(): string
     {
-        return env('APP_URL').'/storage/projects/'.$this->user_id.'/'.$this->id.'/thumbnail.png';
+        return env('APP_URL').'/builder/projects/'.$this->user_id.'/'.$this->slug.'/thumbnail.png';
     }
 
     public function getEditorUrlAttribute(): string
