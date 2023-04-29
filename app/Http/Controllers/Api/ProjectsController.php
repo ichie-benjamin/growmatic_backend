@@ -151,7 +151,7 @@ class ProjectsController extends Controller
 
         $project = $this->repository->create($this->request->all());
 
-        return $this->successResponse('project',['project' => $this->repository->load($project)]);
+        return $this->successResponse('project successfully created',['project' => $this->repository->load($project)]);
     }
 
     public function destroy(string $id)
