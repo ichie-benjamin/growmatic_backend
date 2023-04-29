@@ -11,10 +11,8 @@ use Common\Database\Datasource\DatasourceFilters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Validation\Rule;
 
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 
 class ProjectsController extends Controller
 {
@@ -131,14 +129,25 @@ class ProjectsController extends Controller
     public function store()
     {
 
+        $user_id = auth()->id();
+
         $this->validate($this->request, [
-            'name' => 'required|string|min:3|max:255|unique:projects',
-            'slug' => 'string|min:3|max:30|unique:projects',
+            'name' => [
+                'required',
+                'string',
+                'min:3',
+                'max:255',
+                Rule::unique('projects')->where(function ($query) use ($user_id) {
+                    return $query->where('user_id', $user_id);
+                }),
+            ],
+//            'slug' => 'string|min:3|max:30|unique:projects',
             'css' => 'nullable|string|min:1|max:255',
             'js' => 'nullable|string|min:1|max:255',
             'template_name' => 'nullable|string',
             'published' => 'boolean',
         ]);
+
 
         $project = $this->repository->create($this->request->all());
 

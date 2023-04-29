@@ -116,9 +116,11 @@ class PagesController extends Controller
         $projectPath = "{$project->user_id}/{$project->slug}";
 
         if($duplicate){
-            $success = Storage::disk('projects')->move("$projectPath/{$data['file']}", "$projectPath/{$data['newfile']}");
-        }else{
             $success = Storage::disk('projects')->copy("$projectPath/{$data['file']}", "$projectPath/{$data['newfile']}");
+
+        }else{
+            $success = Storage::disk('projects')->move("$projectPath/{$data['file']}", "$projectPath/{$data['newfile']}");
+
         }
 
 

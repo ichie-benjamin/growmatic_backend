@@ -181,11 +181,12 @@ class ProjectRepository
 
     public function create(array $data): Project
     {
+        $data['template_name'] = $data['template_name'] ?? 'blank';
         $project = $this->project
             ->create([
                 'name' => $data['name'],
                 'user_id' => $data['userId'] ?? Auth::user()->id,
-                'template' => Arr::get($data, 'template_name'),
+                'template' => $data['template_name'] ?? 'blank',
                 'published' => $data['published'] ?? false,
                 'updated_at' => $data['updated_at'] ?? now(),
             ])
@@ -194,7 +195,8 @@ class ProjectRepository
 
         $projectPath = $this->getProjectPath($project);
 
-        $this->addBootstrapFiles($projectPath);
+//        $this->addBootstrapFiles($projectPath);
+        //Using cdn instead
 
         //thumbnail
         $this->storage->put(
@@ -204,8 +206,11 @@ class ProjectRepository
 
 
         //apply template
-        if ($data['template_name']) {
+        if ($data['template_name'] != 'blank') {
             $this->applyTemplate($data['template_name'], $projectPath);
+        }else{
+            $this->storage->put("$projectPath/index.html", Storage::disk('builder')->get('blank-template.html'));
+            //apply blank template
         }
 
 
@@ -314,35 +319,6 @@ class ProjectRepository
 
     public function applyTemplate(string $templateName, string $projectPath, bool $overrideFiles = true) {
         $templateName = strtolower(Str::kebab($templateName));
-
-        // copy template files recursively
-//        foreach (Storage::disk('builder')->allFiles("templates/$templateName") as $templateFilePath) {
-//            $innerPath = str_replace(
-//                'templates' . DIRECTORY_SEPARATOR . $templateName,
-//                $projectPath,
-//                $templateFilePath,
-//            );
-//
-//            // don't override project styles file
-//            if (Str::contains($innerPath, 'code_editor_styles.css')) {
-//                continue;
-//            }
-//
-//            // don't copy over template config file
-//            if (Str::contains($innerPath, 'config.json')) {
-//                continue;
-//            }
-//
-//            if ($this->storage->exists($innerPath) && !$overrideFiles) {
-//                continue;
-//            }
-//
-//            $this->storage->put(
-//                $innerPath,
-//                Storage::disk('builder')->get($templateFilePath),
-//                Visibility::PUBLIC
-//            );
-//        }
 
         File::copyDirectory(
             public_path("builder/templates/$templateName"),
