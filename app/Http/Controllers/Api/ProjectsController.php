@@ -145,18 +145,23 @@ class ProjectsController extends Controller
         return $this->successResponse('project',['project' => $this->repository->load($project)]);
     }
 
-    public function destroy(string $ids)
+    public function destroy(string $id)
     {
-        $projectIds = explode(',', $ids);
-        foreach ($projectIds as $id) {
-            $project = $this->project->findOrFail($id);
+        $project = Project::findOrFail($id);
 
-            $this->authorize('destroy', $project);
+        $this->repository->delete($project);
 
-            $this->repository->delete($project);
-        }
+        return $this->successResponse('project successfully deleted', $project);
 
-        return $this->success();
+//        $projectIds = explode(',', $ids);
+//        foreach ($projectIds as $id) {
+//            $project = $this->project->findOrFail($id);
+//
+//            $this->authorize('destroy', $project);
+//
+//            $this->repository->delete($project);
+//        }
+
     }
 
 }
