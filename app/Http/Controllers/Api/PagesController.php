@@ -59,6 +59,7 @@ class PagesController extends Controller
 
             $css_file = basename(dirname($file)).'.css';
 
+
             $html_file = substr(strrchr($data['file'], '/'), 1);
 
 
@@ -67,17 +68,27 @@ class PagesController extends Controller
 
             $cssPath = "$templatePath/{$css_file}";
 
+            $thumbPath = "$templatePath/thumbnail.png";
+
+            if(file_exists($thumbPath)){
+
+                return 'exists';
+
+                $storage->put("$projectPath/thumbnail.png", $thumbPath);
+
+            }
+
+            return 'none';
 
             if(file_exists($cssPath)){
-
-//                $projectCss = $storage->path("$projectPath/{$data['css']}");
 
                 $css_content = Storage::disk('builder')->get(str_replace($root.'/','',$cssPath));
 
                 $storage->put("$projectPath/{$data['css']}", $css_content);
 
-
             }
+
+
 
 
         }
@@ -136,7 +147,8 @@ class PagesController extends Controller
                 'path' => $base.'/'.$c_file,
                 'title' => $filename,
                 'url' => asset('builder/starter/'.$c_file),
-                'folder' => $folder
+                'folder' => $folder,
+                'thumbnail' => asset('builder/starter/'.$filename.'/thumbnail.png'),
             ];
         }
 
