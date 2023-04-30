@@ -12,7 +12,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-use Spatie\Browsershot\Browsershot;
+
 
 
 class Controller extends BaseController
@@ -53,17 +53,36 @@ class Controller extends BaseController
     public function generatePreviewImage($filePath, $imagePath)
     {
 
-        Browsershot::html(file_get_contents($filePath))
-            ->noSandbox()
-            ->windowSize(1200, 630)
-            ->save($imagePath);
+        // Load the HTML content of the file
+        $htmlContent = file_get_contents($filePath);
 
-        $image = Image::make($imagePath);
+        // Create a new image resource with a width of 1200px and a height of 630px
+        $image = imagecreatetruecolor(1200, 630);
 
-        $image->save($imagePath, 80);
+        // Set the background color of the image to white
+        $bgColor = imagecolorallocate($image, 255, 255, 255);
+        imagefill($image, 0, 0, $bgColor);
 
+        $fontColor = imagecolorallocate($image, 0, 0, 0);
+
+        $x = 0;
+        $y = 16 * 2;
+
+        $lines = explode("\n", wordwrap(strip_tags($htmlContent), 80, "\n"));
+
+        foreach ($lines as $line) {
+            imagettftext($image, 16, 0, $x, $y, $fontColor, 16, $line);
+            $y += 16 * 1.5;
+        }
+
+        // Save the image as a JPEG file with a quality of 80
+        imagejpeg($image, $imagePath, 80);
+
+        // Destroy the image resource to free up memory
+        imagedestroy($image);
+
+        // Return the image file as a response
         return response()->file($imagePath);
-//        return response()->file($imagePath);
 
     }
 
