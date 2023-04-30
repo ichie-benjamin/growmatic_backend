@@ -136,8 +136,7 @@ class PagesController extends Controller
                 'path' => $base.'/'.$c_file,
                 'title' => $filename,
                 'url' => asset('builder/starter/'.$c_file),
-                'folder' => $folder,
-                'preview_image' => $this->generatePreviewImage(public_path('builder/starter/'.$c_file), public_path('builder/starter/'.$folder.'/preview.png'))
+                'folder' => $folder
             ];
         }
 
