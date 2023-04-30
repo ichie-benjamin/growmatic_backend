@@ -12,7 +12,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-
+use Spatie\Browsershot\Browsershot;
 
 
 class Controller extends BaseController
@@ -53,18 +53,17 @@ class Controller extends BaseController
     public function generatePreviewImage($filePath, $imagePath)
     {
 
-        $image = Image::make($filePath)
-            ->widen(1200, function ($constraint) {
-                $constraint->upsize();
-            })
-            ->heighten(630, function ($constraint) {
-                $constraint->upsize();
-            })
-            ->encode('jpg', 80);
+        Browsershot::html(file_get_contents($filePath))
+            ->noSandbox()
+            ->windowSize(1200, 630)
+            ->save($imagePath);
 
-        file_put_contents($imagePath, $image);
+        $image = Image::make($imagePath);
+
+        $image->save($imagePath, 80);
 
         return response()->file($imagePath);
+//        return response()->file($imagePath);
 
     }
 
