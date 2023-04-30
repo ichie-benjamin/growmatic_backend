@@ -73,13 +73,13 @@ class PagesController extends Controller
 
             if(file_exists($thumbPath)){
 
-                return 'exists';
+//                return 'exists';
 
                 $storage->put("$projectPath/thumbnail.png", $thumbPath);
 
             }
 
-            return 'none';
+//            return 'none';
 
             if(file_exists($cssPath)){
 
