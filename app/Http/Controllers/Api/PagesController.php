@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use League\Flysystem\Adapter\Local;
@@ -194,9 +195,35 @@ class PagesController extends Controller
                 'title' => $filename,
                 'url' => asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/'.$c_file),
                 'folder' => $folder == $project->slug ? 'Root' : $folder,
+                'thumb' => $this->getThumb($file),
+                'last_modified' => $this->lastModified($file),
             ];
         }
         return $files;
+    }
+
+    private function lastModified($file): string
+    {
+        if(file_exists($file)){
+            $last_updated = filemtime($file);
+            return date('Y-m-d H:i:s', $last_updated);
+        }else{
+            return date('Y-m-d H:i:s', Carbon::now());
+        }
+
+    }
+    private function getThumb($file): string
+    {
+        $path = public_path('builder');
+        if(file_exists($file)){
+            $thumb = dirname($file).'/thumbnail.png';
+            if(file_exists($thumb)){
+                $_thumb = str_replace($path,'builder',$thumb);
+                return asset($_thumb);
+            }
+        }
+        return asset('image.jpeg');
+
     }
 
     public function delete(Request $request, $project_id)
