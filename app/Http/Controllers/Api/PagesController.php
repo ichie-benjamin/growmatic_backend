@@ -196,6 +196,7 @@ class PagesController extends Controller
                 'url' => asset('builder/projects/'.$project->user_id.'/'.$project->slug.'/'.$c_file),
                 'folder' => $folder == $project->slug ? 'Root' : $folder,
                 'thumb' => $this->getThumb($file),
+                'editor_url' => $project->editor_url,
                 'last_modified' => $this->lastModified($file),
             ];
         }
@@ -288,7 +289,7 @@ class PagesController extends Controller
         ];
 
         if($success){
-            return $this->successResponse('Page '.$duplicate ? 'duplicated' : 'renamed', $new_data);
+            return $this->successResponse('Page '.$duplicate ? 'page successfully duplicated' : 'page successfully renamed', $new_data);
         }else{
             return $this->errorResponse("Error");
         }
