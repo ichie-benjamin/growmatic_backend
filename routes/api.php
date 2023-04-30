@@ -86,6 +86,10 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::apiResources(['projects' => ProjectsController::class]);
         Route::get('templates', [TemplatesController::class, 'index']);
 
+//        PAGES
+        Route::get('pages/{project}', [PagesController::class, 'pages']);
+        Route::get('pages/starter/templates', [PagesController::class, 'starterTemplates']);
+
 
     });
 

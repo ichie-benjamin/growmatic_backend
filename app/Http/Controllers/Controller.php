@@ -11,6 +11,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+
 
 
 class Controller extends BaseController
@@ -46,6 +48,24 @@ class Controller extends BaseController
             'status' => 'failed',
             'error' => $error,
         ], $code);
+    }
+
+    public function generatePreviewImage($filePath, $imagePath)
+    {
+
+        $image = Image::make($filePath)
+            ->widen(1200, function ($constraint) {
+                $constraint->upsize();
+            })
+            ->heighten(630, function ($constraint) {
+                $constraint->upsize();
+            })
+            ->encode('jpg', 80);
+
+        file_put_contents($imagePath, $image);
+
+        return response()->file($imagePath);
+
     }
 
 //    public function loadTemplates()
