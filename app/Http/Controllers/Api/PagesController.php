@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use League\Flysystem\Adapter\Local;
+
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Filesystem\Filesystem;
@@ -41,7 +41,7 @@ class PagesController extends Controller
 
         $data['html'] = $request->input('html');
         $data['template'] = $request->input('startTemplateUrl');
-        $data['file'] = str_replace('.html', '', $request->input('file'));
+        $data['file'] = $this->cleanFileInput($request->input('file'));
 
 
         $data['file'] = $data['file'].'.html';
@@ -116,6 +116,19 @@ class PagesController extends Controller
         } catch (\Exception $e) {
             return $this->errorResponse("Error saving file': " . $e->getMessage(), 500);
         }
+
+    }
+
+    public function cleanFileInput($file): array|string
+    {
+
+        if (Str::startsWith($file, '/')) {
+            $file = Str::replaceFirst('/', '', $file);
+        }
+
+        $file = str_replace('//', '/', $file);
+
+        return str_replace('.html', '', $file);
 
     }
 
