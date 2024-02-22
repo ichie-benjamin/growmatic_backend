@@ -43,7 +43,7 @@ class TemplateLoader
                 'config' => $this->getTemplateConfig(basename($path)),
                 'thumbnail' => $this->getTemplateImagePath($name),
                 'preview_url' => asset('builder/'.$path.'/index.html'),
-                'thumbnail_url' => env('APP_URL').'/'.$this->getTemplateImagePath($name),
+                'thumbnail_url' => $this->getTemplateImagePath($name),
             ];
         });
     }
