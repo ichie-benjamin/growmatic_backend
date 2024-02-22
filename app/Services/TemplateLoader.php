@@ -48,12 +48,6 @@ class TemplateLoader
         });
     }
 
-    /**
-     * Load specified template from the disk.
-     *
-     * @param string $name
-     * @return array
-     */
     public function load($name)
     {
         $paths = $this->storage->files("templates/$name");
